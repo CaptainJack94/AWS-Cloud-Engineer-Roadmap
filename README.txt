@@ -1,5 +1,5 @@
 # ☁️ AWS Cloud Engineer Roadmap
-CaptainJack94 | **Goal:** AWS Solutions Architect / DevOps Engineer
+CaptainJack94 | **Goal:** AWS Security Engineer / DevOps Engineer
 
 This repository is a live documentation of my technical journey through the AWS Cloud. It tracks my progress from foundational Linux administration to advanced infrastructure automation.
 
