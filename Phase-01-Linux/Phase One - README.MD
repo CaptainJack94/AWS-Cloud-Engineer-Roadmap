@@ -30,13 +30,23 @@ In this module, I moved from the AWS Management Console to the Command Line Inte
 
 \- \*\*Key Commands Mastered:\*\*
 
-&#x20;   - `ssh -i`: Securely connecting to remote instances.
+ ssh -i: Securely connecting to remote instances.
 
-&#x20;   - `dnf install`: Managing Linux packages.
+dnf install: Managing Linux packages.
 
-&#x20;   - `systemctl`: Controlling system services (Nginx).
+systemctl: Controlling system services (Nginx).
 
-&#x20;   - `vi`: Editing configuration files in the terminal.
+vi: Editing configuration files in the terminal.
+
+sudo adduser:	Implementing identity separation.
+
+ls -l: Auditing file permissions and ownership.
+
+grep: Searching logs for indicators of compromise (IoC).
+
+journalctl: Accessing the system's tamper-resistant binary logs.
+
+exit / ~.:	Maintaining session hygiene and closing attack vectors.
 
 
 
@@ -49,6 +59,16 @@ In this module, I moved from the AWS Management Console to the Command Line Inte
 \- \*\*Method:\*\* Bash scripting via AWS User Data field.
 
 \- \*\*Outcome:\*\* Reduced deployment time from 5 minutes to 90 seconds.
+
+Security auditing:
+
+who: To verify active user sessions and detect unauthorized access.
+
+ss -tulpn: To audit open network ports and listening services (Attack Surface Mapping).
+
+sudo -l: To evaluate the "Principle of Least Privilege" regarding administrative permissions.
+
+history: Recognized the risk of command-line "leakage" of sensitive credentials.
 
 
 
