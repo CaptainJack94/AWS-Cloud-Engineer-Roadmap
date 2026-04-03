@@ -70,6 +70,47 @@ sudo -l: To evaluate the "Principle of Least Privilege" regarding administrative
 
 history: Recognized the risk of command-line "leakage" of sensitive credentials.
 
+-----------------------------------------------------
+
+Lab 3: Server Hardening & User Administration
+
+Today’s focus was on transforming a default AWS EC2 instance into a hardened, monitored node using the Principle of Least Privilege (PoLP).🛠️ 
+
+Tasks & Key Accomplishments
+
+SSH Port Translocation: Successfully moved the SSH daemon from default Port 22 to a custom port (2200) to mitigate automated brute-force attacks.
+
+AWS Security Group Alignment: Configured Inbound Rules to synchronize with internal OS changes, resolving "Connection Timeout" hurdles.
+
+System Patching: Executed a full system update using dnf update to patch known vulnerabilities (CVEs).
+
+Identity Management: Created a restricted auditor user account and managed group memberships (wheel) to delegate administrative powers safely.
+
+Sudo Accountability: Practiced "Privilege Escalation" and verified the digital "paper trail" using modern Linux journaling tools.
+
+🔍 Troubleshooting Log
+
+Error Encountered                      Root Cause                                                        Solution
+
+Connection timed out     AWS Security Group was still blocking Port 2200.          Added Custom TCP rule for Port 2200 in AWS Console.
+
+Permission denied           Username typo (ec2user vs ec2-user).                     Corrected syntax to match Amazon Linux defaults.
+
+No such file or directory      Attempted to find /var/log/secure.              Learned that AL2023 uses binary journalctl for security logs.
+
+
+# Check the Sudo Audit Trail
+sudo journalctl _COMM=sudo
+
+# Follow SSH logs in real-time
+sudo journalctl -u sshd -f
+
+# Securely offboard a user and their data
+sudo userdel -r auditor
+
+# Check system memory and uptime
+free -h && uptime
+
 
 
 \---
