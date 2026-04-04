@@ -111,7 +111,62 @@ sudo userdel -r auditor
 # Check system memory and uptime
 free -h && uptime
 
+Lab 4: More Linux permissions and security:
 
+Key learning points today:
+
+Issue: ssh: Could not resolve hostname p
+
+Root Cause: Missing flag syntax in the CLI.
+
+Solution: Corrected the command to include the port flag:
+
+ssh -i "LinuxServerKey.pem" -p 2200 ec2-user@<IP>
+
+Hardening: Verified the SSH daemon is listening on Port 2200 using ss -tulpn.
+
+2. Linux Core Skills & Permissions
+The Octal Rule: Learned to translate rwx into numeric values:
+
+chmod 400: Strict read-only for the owner (Required for AWS .pem keys).
+
+chmod 755: Public read/execute, private write (Standard for directories).
+
+Ownership: Used chown root:root to simulate protecting system files from standard users.
+
+Process Management: Used top and htop to monitor system resources and ps aux | grep ssh to audit running services.
+
+3. Security Auditing with journalctl
+Log Investigation: Used journalctl -u ssh to audit login attempts.
+
+Real-time Monitoring: Practiced journalctl -f to watch system events as they happen.
+
+Kernel Security: Identified and investigated a RETBleed (Spectre v2) CPU vulnerability warning.
+
+Action Taken: Verified hardware mitigations using tail /sys/devices/system/cpu/vulnerabilities/*.
+
+4. AWS Storage Security (EBS)
+Encryption at Rest: Verified that the EBS volume is encrypted using AWS KMS.
+
+The "Snapshot & Swap" Workflow: Learned the architectural process for encrypting unencrypted volumes by copying snapshots with encryption enabled.
+
+Action Taken: Verified hardware mitigations using tail /sys/devices/system/cpu/vulnerabilities/*.
+
+Key Commands Catalog
+
+Command                              Purpose
+
+ssh -p 2200                 Connect via non-standard port
+
+lsblk -f                    View disk partitions and filesystem UUID
+
+schmod 400                        Secure private keys
+
+sudo dnf update -y            Apply latest security patches to the OS
+
+journalctl -p err                Filter logs for system errors only
+
+export                             Manage environment variables
 
 \---
 
