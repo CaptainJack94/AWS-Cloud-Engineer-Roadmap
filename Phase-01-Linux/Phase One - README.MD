@@ -48,7 +48,7 @@ journalctl: Accessing the system's tamper-resistant binary logs.
 
 exit / ~.:	Maintaining session hygiene and closing attack vectors.
 
-
+--------------------------------------------------
 
 \### 🤖 Lab 2: Automated Bootstrapping
 
@@ -111,6 +111,8 @@ sudo userdel -r auditor
 # Check system memory and uptime
 free -h && uptime
 
+-----------------------------------------------
+
 Lab 4: More Linux permissions and security:
 
 Key learning points today:
@@ -152,21 +154,63 @@ The "Snapshot & Swap" Workflow: Learned the architectural process for encrypting
 
 Action Taken: Verified hardware mitigations using tail /sys/devices/system/cpu/vulnerabilities/*.
 
-Key Commands Catalog
+Key Commands:
 
-Command                              Purpose
+Command,Purpose
+ssh -p 2200 - Connect to a server via a non-standard port (Security through obscurity).
 
-ssh -p 2200                 Connect via non-standard port
+lsblk -f - "View disk partitions, mount points, and unique filesystem UUIDs."
 
-lsblk -f                    View disk partitions and filesystem UUID
+chmod 400 - Secure private keys by making them read-only for the owner (Required for .pem files).
 
-schmod 400                        Secure private keys
+sudo dnf update -y - Apply the latest security patches and updates to the OS automatically.
 
-sudo dnf update -y            Apply latest security patches to the OS
+journalctl -p err - "Filter system logs to show only ""Error"" level messages and above."
 
-journalctl -p err                Filter logs for system errors only
+export - View or manage environment variables (used for API keys or system paths).
 
-export                             Manage environment variables
+----------------------------------------------------------
+Lab 5: Linux Administration:
+
+Today I focused on the internal mechanics of Linux and investigated system level processes.
+
+1. Network Interface Auditing
+Command used: ip addr & ping
+
+Key Learning: Identified the difference between the Loopback interface (lo) for internal communication and the Primary interface (ens5) used for VPC and Internet traffic.
+
+Verification: Confirmed DNS resolution and ICMP reachability to external hosts (google.com).
+
+2. Advanced Web Troubleshooting with curl
+Concept: Used curl (Client URL) as a diagnostic tool rather than just a browser.
+
+AWS Metadata (IMDSv2): Successfully retrieved instance metadata (Instance ID, Public Hostname) using the secure IMDSv2 token-based method.
+
+Security Note: Practiced using PUT requests to generate session tokens, preventing SSRF vulnerabilities.
+
+3. Web Server Deployment & Hardening
+Service: Installed and configured Nginx using dnf.
+
+Process Management: Analyzed the Master/Worker process model.
+
+Master Process: Runs as root to manage the service.
+
+Worker Processes: Run as the nginx user to handle traffic (Principle of Least Privilege).
+
+Lifecycle Control: Mastered systemctl for start, stop, enable (persistence), and status checks.
+
+4. System Resource Investigation
+Process Tracking: Used ps aux | grep nginx to audit running IDs (PIDs).
+
+Storage Auditing: Used df -h to monitor EBS volume utilization (NVMe storage) and ensure system stability.
+
+💡 Architectural Insights (AWS SAA Alignment)
+Security Groups: Verified that local connectivity (localhost:80) can succeed while external connectivity fails if Inbound Rules are not explicitly configured.
+
+High Availability: Learned the importance of systemctl enable to ensure service recovery after an EC2 reboot or Auto Scaling event.
+
+🔧 Tools & Ciphers Used
+dnf | systemctl | curl | ps | grep | df | IMDSv2
 
 \---
 
