@@ -212,6 +212,50 @@ High Availability: Learned the importance of systemctl enable to ensure service 
 🔧 Tools & Ciphers Used
 dnf | systemctl | curl | ps | grep | df | IMDSv2
 
+---------------------------------------------
+
+Day 6: Linux Administration - File permissions, Ownership and Bash scripting
+
+1. The "Security Guard" (Permissions & chmod)
+Concept: Mastered the Numerical (Octal) Notation for file security.
+
+4 (Read), 2 (Write), 1 (Execute).
+
+Key Command: chmod 600 secret_plan.txt
+
+Successfully locked down a sensitive file so only the root user could access it, simulating a "Private Key" security scenario.
+
+The SAA Connection: Applied the chmod 400 logic required for securing .pem keys in AWS.
+
+2. Administrative Ownership (chown)
+Command used: sudo chown root:root secret_plan.txt
+
+Learning: Experimented with Privilege Separation. By transferring ownership to the superuser, I verified that the standard ec2-user is restricted from modifying critical system files without explicit sudo escalation.
+
+3. Infrastructure as Code: Bash Scripting
+Script Creation: Built setup_web.sh using the nano text editor.
+
+Functionality: * Implemented Command Substitution using $(hostname) to make the script context-aware.
+
+Integrated System Auditing commands (df -h) into the script workflow.
+
+Execution: Used chmod +x to grant the file "Execute" permissions, transforming a text file into a functional system tool.
+
+4. File Management & Safety
+Commands: mv (Move/Rename), cp (Copy/Backup), and ls -la (Viewing hidden system files).
+
+Best Practice: Learned to create .bak copies of configuration files before attempting modifications—a critical skill for production environment stability.
+
+ 
+chmod +x [file] - Grant Execute permission -  Turning a script into a runnable program.
+
+chown [user]:[group] - Change file owner - Securing a database config file from standard users.
+
+nano [file] - Terminal Text Editor - Editing configuration files or writing automation scripts.
+
+ls -la - List All (including Hidden) - Auditing .ssh keys or .bash_history for security.
+
+$(command) - Command Substitution - Pulling live data (like hostname) into a script variable.
 \---
 
 
