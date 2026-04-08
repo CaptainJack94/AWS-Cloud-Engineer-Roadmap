@@ -1,0 +1,42 @@
+Day 7 focused on Operating System Hardening and implementing the Principle of Least Privilege (PoLP).
+I transitioned from using a single administrative account to managing granular user permissions and recovering a system from a critical configuration failure.
+
+🛠️ Skills Mastered
+User Management: Created and managed restricted Linux users (useradd, passwd).
+
+Sudoers Configuration: Implemented granular permissions using the modular /etc/sudoers.d/ directory.
+
+System Recovery: Performed "emergency surgery" on a corrupted /etc/sudoers file using sed to remove syntax errors and restore administrative functionality.
+
+Secure Automation: Used echo and tee to inject security policies without manual editor intervention (ideal for User Data scripts).
+
+⚠️ Critical Incident & Resolution (detailed breakdown at the bottom)
+During the lab, the main sudoers file became corrupted with syntax errors, causing sudo to fail system-wide.
+
+Issue: Improperly saved characters in /etc/ssh/sshd_config caused a paralysis of administrative commands.
+
+Solution: Utilized sed (Stream Editor) to surgically delete corrupted lines by line number, restoring the system to a healthy state without a reboot.
+
+💡 Architectural Key Concept
+Defense in Depth: Security isn't just about the AWS Security Group (Firewall). It is about layering security.
+While the Security Group controls who can reach the server, Linux permissions control what they can do once they arrive.
+
+Troubleshooting: Resolving Sudoers Corruption
+During the configuration process, the /etc/sudoers file was accidentally saved with syntax errors (exit, x, X), which effectively locked out administrative privileges.
+
+The Challenge:
+Standard sudo commands failed with: syntax error at line 135. Because visudo (the safe editor) also relies on the sudoers file to validate permissions, I was stuck in a "What now?" loop where the system refused to save or exit cleanly.
+
+The Solution:
+
+Emergency Exit: Forced a quit from the corrupted visudo session using the (x) exit without saving option to regain terminal control.
+
+Non-Interactive Repair: Used the sed (Stream Editor) utility to delete the specific corrupted lines without opening a manual editor:
+
+Bash
+sudo sed -i '134,140d' /etc/sudoers
+Validation: Verified system health with sudo ls /root to ensure the syntax was clean.
+
+Architectural Pivot: To prevent future corruption, I abandoned direct modification of /etc/sudoers and switched to the Drop-in Directory method (/etc/sudoers.d/).
+
+Key Takeaway: Never edit the "Main Engine" if you can use a "Plugin." Using sudoers.d ensures that a typo in a user policy doesn't paralyze the entire operating system.
