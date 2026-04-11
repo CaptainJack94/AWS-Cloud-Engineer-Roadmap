@@ -1,4 +1,4 @@
-Day 7 focused on Operating System Hardening and implementing the Principle of Least Privilege (PoLP).
+Day 7 - focused on Operating System Hardening and implementing the Principle of Least Privilege (PoLP).
 I transitioned from using a single administrative account to managing granular user permissions and recovering a system from a critical configuration failure.
 
 🛠️ Skills Mastered
@@ -40,3 +40,46 @@ Validation: Verified system health with sudo ls /root to ensure the syntax was c
 Architectural Pivot: To prevent future corruption, I abandoned direct modification of /etc/sudoers and switched to the Drop-in Directory method (/etc/sudoers.d/).
 
 Key Takeaway: Never edit the "Main Engine" if you can use a "Plugin." Using sudoers.d ensures that a typo in a user policy doesn't paralyze the entire operating system.
+
+---------------------------------------------------------
+
+Day 8 - Implementing a Reverse Proxy on AWS EC2
+
+Overview
+Today, I transitioned from a basic web server to a Multi-Tier Architecture by configuring Nginx as a Reverse Proxy. I moved away from dynamic IP addresses by implementing an AWS Elastic IP, 
+ensuring a persistent entry point for the server.
+
+Key Technical Concepts
+Static Networking: Allocated and associated an Elastic IP to prevent IP address changes on instance reboot.
+
+Reverse Proxy Configuration: Configured Nginx to listen on Port 80 and forward traffic to an internal application running on Port 8080.
+
+Package Management: Installed nc (Netcat) via yum to simulate a backend application environment.
+
+Troubleshooting (The "502 Bad Gateway"): * Diagnosed connection issues between the proxy and the backend.
+
+Utilized ss -tulpn to verify port listening status.
+
+Resolved permission issues by adjusting SELinux boolean settings (httpd_can_network_connect).
+
+Challenges faced:
+
+The Backend (The "Hidden App")
+I used a simple command (nc or Netcat) to simulate a real-world application like a Python or Node.js server.
+
+The Challenge: I found the tool wasn't there (command not found).
+
+The Fix: I used yum install
+
+The Result: I had a service running "internally" on the server that only Nginx could easily talk to.
+
+Troubleshooting 
+The 502 Bad Gateway was encountered when I searched for the IP address.
+
+Is the Door Open? (Security Groups/Firewalls)
+
+Is the Service Running? (Checking ss -tulpn to see if Port 8080 was listening)
+
+Is the Gateway Allowed to talk? (SELinux permissions)
+
+-------------------------------------------------
