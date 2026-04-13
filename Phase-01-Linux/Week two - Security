@@ -83,3 +83,31 @@ Is the Service Running? (Checking ss -tulpn to see if Port 8080 was listening)
 Is the Gateway Allowed to talk? (SELinux permissions)
 
 -------------------------------------------------
+
+Day 9: Mastering the Application Load Balancer (ALB) Handshake
+Objective: Deploy a fault-tolerant web architecture and resolve complex Port-Mapping challenges between the Load Balancer and backend services.
+
+Key Accomplishments:
+
+Dynamic Scaling: Re-deployed a high-availability fleet using Auto Scaling Groups (ASG) across three Availability Zones (AZs).
+
+Advanced Port Routing: Successfully configured an ALB to listen on standard web traffic (Port 80) and route it to a custom backend application running on Port 8080.
+
+Infrastructure Debugging: Identified and resolved a "Connection Refused" error by aligning Target Group protocols with backend User Data service configurations.
+
+Security Chaining: Refined Security Group rules to allow seamless traffic flow while maintaining a "Least Privilege" security posture.
+
+Technical Stack:
+
+AWS Services: EC2, Application Load Balancer (ALB), Auto Scaling Groups (ASG), VPC (Internet Gateways & Route Tables).
+
+Scripting: Bash (automated Nginx setup and background Netcat service).
+
+Today highlighted the importance of 'The Handshake.' Even with healthy targets, a single port mismatch can break an entire architecture. By reconfiguring the Target Group to bridge the gap between Port 80 and Port 8080, I achieved a seamless, load-balanced user experience without requiring users to specify custom ports in the URL.
+
+Please see attached file with screenshots
+
+----------------------------------------------
+
+
+
