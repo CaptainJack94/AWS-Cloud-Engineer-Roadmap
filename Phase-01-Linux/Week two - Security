@@ -109,5 +109,28 @@ Please see attached file with screenshots
 
 ----------------------------------------------
 
+Day 10: Implementing Scalable Shared Storage with Amazon EFS
+Objective: To move from "Local Storage" to "Shared Network Storage," allowing multiple EC2 instances to access a single source of truth simultaneously.
 
+Key Accomplishments:
+
+Provisioned Amazon EFS: Created a high-availability Elastic File System across multiple Availability Zones.
+
+Engineered NFS Security: Configured a dedicated Storage Security Group to allow inbound traffic on Port 2049 (NFS) specifically from the web server tier.
+
+Real-time Data Sync: Successfully mounted the EFS volume to two independent EC2 instances using the amazon-efs-utils helper with TLS encryption.
+
+Validated Persistence: Verified that files created on Instance A were instantly available and editable on Instance B, proving a "stateless" architecture.
+
+Technical Stack:
+
+AWS Services: Amazon EFS, EC2, VPC.
+
+Protocols: NFS v4.1, TCP Port 2049.
+
+Linux Tools: mount, df -h, mkdir, amazon-efs-utils.
+
+The "Cloud Architect" Insight:
+
+"By separating compute from storage, I've created an architecture that is resilient to instance failure. If a server is terminated, the data survives in EFS. This is the foundation for scaling web applications that require shared media or configuration files."
 
